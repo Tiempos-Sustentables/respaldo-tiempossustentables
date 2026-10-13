@@ -1,19 +1,17 @@
 ---
-
-import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
-
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, date, heroImage, coverImage } = Astro.props;
+const displayDate = pubDate || date;
+const displayImage = heroImage || coverImage;
 ---
 
-<html lang="en">
+<html lang="es">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title || 'Artículo'} description={description || ''} />
 		<style>
 			main {
 				width: calc(100% - 2em);
@@ -28,6 +26,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin: 0 auto;
 				border-radius: 12px;
 				box-shadow: var(--box-shadow);
+				max-height: 480px;
+				object-fit: cover;
 			}
 			.prose {
 				width: 720px;
@@ -49,9 +49,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin-bottom: 0.5em;
 				color: rgb(var(--gray));
 			}
-			.last-updated-on {
-				font-style: italic;
-			}
 		</style>
 	</head>
 
@@ -60,17 +57,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<main>
 			<article>
 				<div class="hero-image">
-					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
+					{displayImage && <img width={1020} height={510} src={displayImage} alt="" />}
 				</div>
 				<div class="prose">
 					<div class="title">
 						<div class="date">
-							<FormattedDate date={pubDate} />
-							{updatedDate && (
-								<div class="last-updated-on">
-									Last updated on <FormattedDate date={updatedDate} />
-								</div>
-							)}
+							<FormattedDate date={displayDate} />
 						</div>
 						<h1>{title}</h1>
 						<hr />
