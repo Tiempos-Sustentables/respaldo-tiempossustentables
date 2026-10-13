@@ -6,8 +6,14 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
 
-const posts = (await getCollection('blog'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+// Obtenemos los artículos y los ordenamos de forma segura
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .sort((a, b) => {
+    const dateA = a.data.pubDate ? a.data.pubDate.valueOf() : 0;
+    const dateB = b.data.pubDate ? b.data.pubDate.valueOf() : 0;
+    return dateB - dateA;
+  })
   .slice(0, 6);
 ---
 
@@ -88,20 +94,24 @@ const posts = (await getCollection('blog'))
 
 			<section class="recent-posts">
 				<h2>Publicaciones Recientes</h2>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<h3 class="title">{post.data.title}</h3>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+				{posts.length === 0 ? (
+					<p>Cargando publicaciones o no hay artículos disponibles...</p>
+				) : (
+					<ul>
+						{
+							posts.map((post) => (
+								<li>
+									<a href={`/blog/${post.id}/`}>
+										<h3 class="title">{post.data.title}</h3>
+										<p class="date">
+											{post.data.pubDate ? <FormattedDate date={post.data.pubDate} /> : 'Fecha no disponible'}
+										</p>
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				)}
 				<div style="text-align: center;">
 					<a href="/blog" class="btn-all">Ver todos los artículos →</a>
 				</div>
