@@ -3,6 +3,5 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://tiempos-sustentables.github.io',
-  base: '/respaldo-tiempossustentables',
+  site: 'https://tiempossustentables.cl',
 });
