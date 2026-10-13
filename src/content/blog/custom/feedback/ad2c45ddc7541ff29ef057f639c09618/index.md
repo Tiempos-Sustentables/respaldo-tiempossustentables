@@ -1,0 +1,6 @@
+---
+title: "Jesus Blasco V - 2026-06-15 07:32:31"
+date: 2026-06-15
+---
+
+{"subject":"Un nuevo registro desde tu web","ip":"191.125.36.198","country\_code":"CL","user\_agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10\_15\_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36","notification\_recipients":\["263771752"\],"logged\_in\_user":{"display\_name":"Tiempos Sustentables","username":"tiempossustentables0","id":263771752},"entry\_title":"Exponor 2026: por qu\\u00e9 Europa apost\\u00f3 todo al norte de Chile","entry\_page":1,"source\_id":7105,"source\_type":"single","request\_url":"https://tiempossustentables.cl/2026/06/15/exponor-2026","fields":\[{"key":"1\_Nombre","label":"Nombre","value":"Jesus Blasco V","type":"name","meta":\[\],"form\_field\_id":"name"},{"key":"2\_Correo electr\\u00f3nico","label":"Correo electr\\u00f3nico","value":"jesus.blascov@gmail.com","type":"email","meta":\[\],"form\_field\_id":"g7105-correoelectrnico"},{"key":"3\_N\\u00famero de tel\\u00e9fono","label":"N\\u00famero de tel\\u00e9fono","value":"+56 982252091","type":"phone","meta":\[\],"form\_field\_id":"g7105-nmerodetelfono"},{"key":"4\_Cargo","label":"Cargo","value":"Director","type":"name","meta":\[\],"form\_field\_id":"name-2"}\]}
