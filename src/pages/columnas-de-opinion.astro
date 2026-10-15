@@ -1,48 +1,18 @@
 ---
 const columns = [
-  {
-    author: 'Antonia Biggs Fuenzalida',
-    role: 'Gerenta General, ANIR',
-    title: 'Del residuo al recurso: el cambio de mirada que necesita Chile',
-    href: 'https://tiempossustentables.cl/del-residuo-al-recurso-el-cambio-de-mirada-que-necesita-chile/',
-    avatar: 'https://tiempossustentables.cl/wp-content/uploads/2026/06/MG_7748-Editar-e1782210055213.jpg?fit=150%2C150&ssl=1',
-  },
-  {
-    author: 'Gerardo Wijnant',
-    role: 'Consultor Nuevas Economías | Promotor Ecosistema BELAT',
-    title: 'El renacer de nuestros territorios: la urgencia de una economía regenerativa y del bien común',
-    href: 'https://tiempossustentables.cl/renacer-territorios-economia-regenerativa-bien-comun/',
-    avatar: 'https://tiempossustentables.cl/wp-content/uploads/2025/05/Gerardo-Wijnant.png?fit=150%2C150&ssl=1',
-  },
-  {
-    author: 'Margarita Ducci',
-    role: 'Directora Ejecutiva, Pacto Global Chile',
-    title: 'Educación ambiental: un aprendizaje que definirá el futuro de nuestro entorno',
-    href: 'https://tiempossustentables.cl/educacion-ambiental-un-aprendizaje-que-definira-el-futuro-de-nuestro-entorno/',
-    avatar: 'https://tiempossustentables.cl/wp-content/uploads/2025/07/margarita-ducci-2025-e1784313379312.jpg?fit=150%2C150&ssl=1',
-  },
-  {
-    author: 'Rosa Madera Núñez',
-    role: 'Fundadora de Empatthy | Impact Advisor',
-    title: 'Filantropía de desastres: de la reacción a la resiliencia estructural',
-    href: 'https://tiempossustentables.cl/filantropia-de-desastres-de-la-reaccion-a-la-resiliencia-estructural/',
-    avatar: 'https://tiempossustentables.cl/wp-content/uploads/2025/05/Rosa-Madera.png?fit=150%2C150&ssl=1',
-  },
+  { author: 'Antonia Biggs Fuenzalida', role: 'Gerenta General, ANIR', title: 'Del residuo al recurso: el cambio de mirada que necesita Chile', href: 'https://tiempossustentables.cl/del-residuo-al-recurso-el-cambio-de-mirada-que-necesita-chile/', avatar: 'https://tiempossustentables.cl/wp-content/uploads/2026/06/MG_7748-Editar-e1782210055213.jpg?fit=150%2C150&ssl=1' },
+  { author: 'Gerardo Wijnant', role: 'Consultor Nuevas Econom&iacute;as | Promotor Ecosistema BELAT', title: 'El renacer de nuestros territorios: la urgencia de una econom&iacute;a regenerativa y del bien com&uacute;n', href: 'https://tiempossustentables.cl/renacer-territorios-economia-regenerativa-bien-comun/', avatar: 'https://tiempossustentables.cl/wp-content/uploads/2025/05/Gerardo-Wijnant.png?fit=150%2C150&ssl=1' },
+  { author: 'Margarita Ducci', role: 'Directora Ejecutiva, Pacto Global Chile', title: 'Educaci&oacute;n ambiental: un aprendizaje que definir&aacute; el futuro de nuestro entorno', href: 'https://tiempossustentables.cl/educacion-ambiental-un-aprendizaje-que-definira-el-futuro-de-nuestro-entorno/', avatar: 'https://tiempossustentables.cl/wp-content/uploads/2025/07/margarita-ducci-2025-e1784313379312.jpg?fit=150%2C150&ssl=1' },
+  { author: 'Rosa Madera N&uacute;&ntilde;ez', role: 'Fundadora de Empatthy | Impact Advisor', title: 'Filantrop&iacute;a de desastres: de la reacci&oacute;n a la resiliencia estructural', href: 'https://tiempossustentables.cl/filantropia-de-desastres-de-la-reaccion-a-la-resiliencia-estructural/', avatar: 'https://tiempossustentables.cl/wp-content/uploads/2025/05/Rosa-Madera.png?fit=150%2C150&ssl=1' },
 ];
 ---
 
 <main class="ts-page">
   <section class="ts-intro">
     <span class="ts-badge">Voces de Autoridad</span>
-    <h1>Columnas de Opinión y Liderazgo ESG</h1>
-    <p class="ts-lead">
-      Reflexiones, análisis críticos y perspectivas de los líderes y especialistas que están
-      impulsando la sostenibilidad y la gobernanza en América Latina.
-    </p>
-    <p class="ts-muted">
-      Nuestra red de colaboradores aborda los desafíos más complejos de la transición energética,
-      el desarrollo regenerativo y las nuevas normativas climáticas.
-    </p>
+    <h1>Columnas de Opini&oacute;n y Liderazgo ESG</h1>
+    <p class="ts-lead">Reflexiones, an&aacute;lisis cr&iacute;ticos y perspectivas de los l&iacute;deres y especialistas que est&aacute;n impulsando la sostenibilidad y la gobernanza en Am&eacute;rica Latina.</p>
+    <p class="ts-muted">Nuestra red de colaboradores aborda los desaf&iacute;os m&aacute;s complejos de la transici&oacute;n energ&eacute;tica, el desarrollo regenerativo y las nuevas normativas clim&aacute;ticas.</p>
   </section>
 
   <section class="ts-grid">
@@ -51,189 +21,47 @@ const columns = [
         <div class="ts-author">
           <img src={column.avatar} alt={`Foto de ${column.author}`} loading="lazy" />
           <div>
-            <h3>{column.author}</h3>
-            <p>{column.role}</p>
+            <h3 set:html={column.author} />
+            <p set:html={column.role} />
           </div>
         </div>
-        <h2><a href={column.href} target="_blank" rel="noopener noreferrer">{column.title}</a></h2>
-        <a class="ts-read" href={column.href} target="_blank" rel="noopener noreferrer">
-          Leer columna <span aria-hidden="true">→</span>
-        </a>
+        <h2><a href={column.href} target="_blank" rel="noopener noreferrer" set:html={column.title} /></h2>
+        <a class="ts-read" href={column.href} target="_blank" rel="noopener noreferrer">Leer columna <span aria-hidden="true">&rarr;</span></a>
       </article>
     ))}
   </section>
 
   <section class="ts-banner">
     <div class="ts-banner-inner">
-      <div class="ts-banner-icon" aria-hidden="true">📊</div>
+      <div class="ts-banner-icon" aria-hidden="true">&#128202;</div>
       <h2>Conoce nuestro nuevo Centro de Recursos y Transparencia</h2>
-      <p>
-        Accede al panel de datos interactivos, documentos de compliance, repositorio de informes y
-        archivo de publicaciones y columnas de expertos.
-      </p>
+      <p>Accede al panel de datos interactivos, documentos de compliance, repositorio de informes y archivo de publicaciones y columnas de expertos.</p>
       <a href="/centro-de-recursos" class="ts-banner-btn">Explorar el Centro de Recursos</a>
     </div>
   </section>
 </main>
 
 <style>
-  .ts-page {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 40px 20px;
-  }
-
-  .ts-intro {
-    max-width: 800px;
-    margin: 0 auto 48px;
-    text-align: center;
-  }
-
-  .ts-badge {
-    display: inline-block;
-    background: #e0f2fe;
-    color: #0a4a70;
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 20px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-
-  h1 {
-    color: #0a4a70;
-    font-size: clamp(2rem, 5vw, 2.5rem);
-    font-weight: 800;
-    line-height: 1.2;
-    margin: 0 0 24px;
-  }
-
-  .ts-lead {
-    color: #475569;
-    font-size: 1.15rem;
-    line-height: 1.6;
-    margin-bottom: 24px;
-  }
-
-  .ts-muted {
-    color: #64748b;
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-
-  .ts-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-    margin-bottom: 48px;
-  }
-
-  .ts-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-  }
-
-  .ts-author {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-
-  .ts-author img {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #e2e8f0;
-  }
-
-  .ts-author h3 {
-    margin: 0;
-    font-size: 0.95rem;
-    color: #0f172a;
-  }
-
-  .ts-author p {
-    margin: 2px 0 0;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: #be123c;
-  }
-
-  .ts-card h2 {
-    font-size: 1.05rem;
-    line-height: 1.4;
-    margin: 0 0 14px;
-  }
-
-  .ts-card h2 a {
-    color: #0f172a;
-    text-decoration: none;
-  }
-
-  .ts-card h2 a:hover {
-    color: #be123c;
-  }
-
-  .ts-read {
-    color: #be123c;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  .ts-banner {
-    margin: 48px 0;
-  }
-
-  .ts-banner-inner {
-    background: linear-gradient(135deg, #0a4a70, #05263b);
-    border-radius: 16px;
-    padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 4vw, 2.5rem);
-    text-align: center;
-    color: #ffffff;
-    box-shadow: 0 15px 35px rgba(10, 74, 112, 0.2);
-  }
-
-  .ts-banner-icon {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    margin-bottom: 20px;
-  }
-
-  .ts-banner h2 {
-    font-size: clamp(1.75rem, 4vw, 2.25rem);
-    font-weight: 800;
-    margin: 0 0 20px;
-  }
-
-  .ts-banner p {
-    color: #e2e8f0;
-    max-width: 850px;
-    margin: 0 auto 36px;
-    line-height: 1.6;
-  }
-
-  .ts-banner-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: #e07b39;
-    color: #ffffff;
-    font-weight: 700;
-    padding: 14px 30px;
-    border-radius: 8px;
-    text-decoration: none;
-  }
-
-  @media (max-width: 768px) {
-    .ts-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+  .ts-page { max-width: 1180px; margin: 0 auto; padding: 40px 20px; }
+  .ts-intro { max-width: 800px; margin: 0 auto 48px; text-align: center; }
+  .ts-badge { display: inline-block; background: #e0f2fe; color: #0a4a70; font-size: .85rem; font-weight: 700; padding: 6px 16px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+  h1 { color: #0a4a70; font-size: clamp(2rem, 5vw, 2.5rem); font-weight: 800; margin: 0 0 24px; }
+  .ts-lead { color: #475569; font-size: 1.15rem; line-height: 1.6; margin-bottom: 24px; }
+  .ts-muted { color: #64748b; font-size: .95rem; line-height: 1.6; }
+  .ts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-bottom: 48px; }
+  .ts-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; }
+  .ts-author { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .ts-author img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid #e2e8f0; }
+  .ts-author h3 { margin: 0; font-size: .95rem; color: #0f172a; }
+  .ts-author p { margin: 2px 0 0; font-size: .78rem; font-weight: 600; color: #be123c; }
+  .ts-card h2 { font-size: 1.05rem; line-height: 1.4; margin: 0 0 14px; }
+  .ts-card h2 a { color: #0f172a; text-decoration: none; }
+  .ts-read { color: #be123c; font-size: .85rem; font-weight: 700; text-decoration: none; }
+  .ts-banner { margin: 48px 0; }
+  .ts-banner-inner { background: linear-gradient(135deg, #0a4a70, #05263b); border-radius: 16px; padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 4vw, 2.5rem); text-align: center; color: #fff; }
+  .ts-banner-icon { font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 20px; }
+  .ts-banner h2 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800; margin: 0 0 20px; }
+  .ts-banner p { color: #e2e8f0; max-width: 850px; margin: 0 auto 36px; }
+  .ts-banner-btn { display: inline-flex; background: #e07b39; color: #fff; font-weight: 700; padding: 14px 30px; border-radius: 8px; text-decoration: none; }
+  @media (max-width: 768px) { .ts-grid { grid-template-columns: 1fr; } }
 </style>

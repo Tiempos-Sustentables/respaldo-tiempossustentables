@@ -1,27 +1,11 @@
 ---
 const year = new Date().getFullYear();
-
 const latestPosts = [
-  {
-    title: 'La Grieta ESG en Chile',
-    href: 'https://tiempossustentables.cl/la-grieta-esg-en-chile/',
-  },
-  {
-    title: 'Cambio climático y desastres en América Latina',
-    href: 'https://tiempossustentables.cl/cambio-climatico-desastres-america-latina/',
-  },
-  {
-    title: 'Economía informal, ESG y Alcance 3',
-    href: 'https://tiempossustentables.cl/economia-informal-esg-alcance-3/',
-  },
-  {
-    title: 'Arquitectura de Valor ESG en 5 bloques',
-    href: 'https://tiempossustentables.cl/arquitectura-de-valor-esg/',
-  },
-  {
-    title: 'Gobernanza climática en la banca latinoamericana',
-    href: 'https://tiempossustentables.cl/gobernanza-climatica-banca-latinoamericana/',
-  },
+  { title: 'La Grieta ESG en Chile', href: 'https://tiempossustentables.cl/la-grieta-esg-en-chile/' },
+  { title: 'Cambio clim&aacute;tico y desastres en Am&eacute;rica Latina', href: 'https://tiempossustentables.cl/cambio-climatico-desastres-america-latina/' },
+  { title: 'Econom&iacute;a informal, ESG y Alcance 3', href: 'https://tiempossustentables.cl/economia-informal-esg-alcance-3/' },
+  { title: 'Arquitectura de Valor ESG en 5 bloques', href: 'https://tiempossustentables.cl/arquitectura-de-valor-esg/' },
+  { title: 'Gobernanza clim&aacute;tica en la banca latinoamericana', href: 'https://tiempossustentables.cl/gobernanza-climatica-banca-latinoamericana/' },
 ];
 ---
 
@@ -30,38 +14,25 @@ const latestPosts = [
     <div class="ts-footer-grid">
       <div class="ts-footer-brand">
         <h3>Tiempos Sustentables</h3>
-        <p>
-          Revista digital dedicada a informar, inspirar y conectar a profesionales y ciudadanos
-          comprometidos con un futuro más sostenible. Abordamos innovación, tendencias y acciones
-          concretas que transforman Chile y Latinoamérica.
-        </p>
-        <p class="ts-footer-issn">
-          <strong>Tiempos Sustentables © {year} — ISSN 3087-3096</strong>
-        </p>
+        <p>Revista digital dedicada a informar, inspirar y conectar a profesionales y ciudadanos comprometidos con un futuro m&aacute;s sostenible. Abordamos innovaci&oacute;n, tendencias y acciones concretas que transforman Chile y Latinoam&eacute;rica.</p>
+        <p class="ts-footer-issn"><strong>Tiempos Sustentables &copy; {year} &mdash; ISSN 3087-3096</strong></p>
       </div>
-
       <div class="ts-footer-column">
-        <h4>Últimas publicaciones</h4>
+        <h4>&Uacute;ltimas publicaciones</h4>
         <ul>
-          {latestPosts.map((post) => (
-            <li>
-              <a href={post.href} target="_blank" rel="noopener noreferrer">{post.title}</a>
-            </li>
-          ))}
+          {latestPosts.map((post) => (<li><a href={post.href} target="_blank" rel="noopener noreferrer" set:html={post.title} /></li>))}
         </ul>
       </div>
-
       <div class="ts-footer-column">
-        <h4>Navegación</h4>
+        <h4>Navegaci&oacute;n</h4>
         <ul>
           <li><a href="/">Inicio</a></li>
           <li><a href="/reportajes">Reportajes</a></li>
-          <li><a href="/columnas-de-opinion">Columnas de Opinión</a></li>
+          <li><a href="/columnas-de-opinion">Columnas de Opini&oacute;n</a></li>
           <li><a href="/centro-de-recursos">Centro de Recursos</a></li>
           <li><a href="/contacto">Contacto</a></li>
         </ul>
       </div>
-
       <div class="ts-footer-column">
         <h4>Transparencia</h4>
         <ul>
@@ -72,10 +43,9 @@ const latestPosts = [
         </ul>
       </div>
     </div>
-
     <div class="ts-footer-bottom">
-      <span id="ts-footer-clock">Cargando hora SCL…</span>
-      <span>ESG · Sostenibilidad Corporativa · Economía Circular</span>
+      <span id="ts-footer-clock">Cargando hora SCL&hellip;</span>
+      <span>ESG &middot; Sostenibilidad Corporativa &middot; Econom&iacute;a Circular</span>
     </div>
   </div>
 </footer>
@@ -87,107 +57,25 @@ const latestPosts = [
     const now = new Date();
     const date = now.toLocaleDateString('es-CL', { day: '2-digit', month: 'short', year: 'numeric' });
     const time = now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Santiago' });
-    el.textContent = `${date}, ${time} hrs | SCL`;
+    el.textContent = date + ', ' + time + ' hrs | SCL';
   }
   updateFooterClock();
   setInterval(updateFooterClock, 60000);
 </script>
 
 <style>
-  .ts-footer {
-    margin-top: 3rem;
-    background: #0a4a70;
-    color: #e2e8f0;
-  }
-
-  .ts-footer-inner {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 48px 20px 24px;
-  }
-
-  .ts-footer-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 0.8fr 1fr;
-    gap: 32px;
-  }
-
-  .ts-footer h3 {
-    margin: 0 0 10px;
-    font-family: Newsreader, Georgia, serif;
-    font-size: 1.35rem;
-    color: #ffffff;
-  }
-
-  .ts-footer h4 {
-    margin: 0 0 12px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: #93c5fd;
-  }
-
-  .ts-footer p {
-    margin: 0 0 12px;
-    font-size: 0.88rem;
-    line-height: 1.6;
-    color: #cbd5e1;
-  }
-
-  .ts-footer-issn {
-    font-size: 0.8rem;
-    color: #93c5fd;
-  }
-
-  .ts-footer ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .ts-footer li {
-    margin-bottom: 8px;
-  }
-
-  .ts-footer a {
-    color: #e2e8f0;
-    font-size: 0.86rem;
-    text-decoration: none;
-  }
-
-  .ts-footer a:hover {
-    color: #ffffff;
-    text-decoration: underline;
-  }
-
-  .ts-footer-bottom {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 36px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
-    font-size: 0.78rem;
-    color: #cbd5e1;
-  }
-
-  @media (max-width: 900px) {
-    .ts-footer-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .ts-footer-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .ts-footer-bottom {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-  }
+  .ts-footer { margin-top: 3rem; background: #0a4a70; color: #e2e8f0; }
+  .ts-footer-inner { max-width: 1180px; margin: 0 auto; padding: 48px 20px 24px; }
+  .ts-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr .8fr 1fr; gap: 32px; }
+  .ts-footer h3 { margin: 0 0 10px; font-family: Newsreader, Georgia, serif; font-size: 1.35rem; color: #fff; }
+  .ts-footer h4 { margin: 0 0 12px; font-size: .8rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #93c5fd; }
+  .ts-footer p { margin: 0 0 12px; font-size: .88rem; line-height: 1.6; color: #cbd5e1; }
+  .ts-footer-issn { font-size: .8rem; color: #93c5fd; }
+  .ts-footer ul { list-style: none; margin: 0; padding: 0; }
+  .ts-footer li { margin-bottom: 8px; }
+  .ts-footer a { color: #e2e8f0; font-size: .86rem; text-decoration: none; }
+  .ts-footer a:hover { color: #fff; text-decoration: underline; }
+  .ts-footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-top: 36px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.18); font-size: .78rem; color: #cbd5e1; }
+  @media (max-width: 900px) { .ts-footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .ts-footer-grid { grid-template-columns: 1fr; } .ts-footer-bottom { flex-direction: column; align-items: center; text-align: center; } }
 </style>
