@@ -3,120 +3,377 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import { getCollection } from 'astro:content';
-import FormattedDate from '../components/FormattedDate.astro';
-
-// Obtenemos los artículos y los ordenamos de forma segura
-const allPosts = await getCollection('blog');
-const posts = allPosts
-  .sort((a, b) => {
-    const dateA = a.data.pubDate ? a.data.pubDate.valueOf() : 0;
-    const dateB = b.data.pubDate ? b.data.pubDate.valueOf() : 0;
-    return dateB - dateA;
-  })
-  .slice(0, 6);
 ---
 
 <!doctype html>
 <html lang="es">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 3em 1em;
-			}
-			.hero {
-				text-align: center;
-				margin-bottom: 3rem;
-			}
-			.hero h1 {
-				font-size: 2.8rem;
-				margin-bottom: 0.5rem;
-			}
-			.hero p {
-				font-size: 1.25rem;
-				color: rgb(var(--gray));
-			}
-			.recent-posts h2 {
-				margin-bottom: 1.5rem;
-				border-bottom: 2px solid rgb(var(--gray-light));
-				padding-bottom: 0.5rem;
-			}
-			ul {
-				list-style-type: none;
-				padding: 0;
-				margin: 0;
-			}
-			li {
-				margin-bottom: 1.5rem;
-			}
-			li a {
-				text-decoration: none;
-				display: block;
-			}
-			li a:hover .title {
-				color: rgb(var(--accent));
-			}
-			.title {
-				margin: 0;
-				font-size: 1.3rem;
-				color: rgb(var(--black));
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-				font-size: 0.9rem;
-			}
-			.btn-all {
-				display: inline-block;
-				margin-top: 1.5rem;
-				padding: 0.75rem 1.5rem;
-				background: rgb(var(--black));
-				color: white;
-				text-decoration: none;
-				border-radius: 8px;
-			}
-			.btn-all:hover {
-				background: rgb(var(--accent));
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section class="hero">
-				<h1>🌱 Tiempos Sustentables</h1>
-				<p>ESG y Sostenibilidad Corporativa</p>
-			</section>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main class="ts-home-wrap">
+      <style is:global>
+        .ts-home-wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .ts-esg-ticker-wrap { background: #f4f7f4; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; overflow: hidden; margin-bottom: 1rem; }
+        .ts-esg-ticker { display: flex; align-items: center; width: 100%; }
+        .ts-esg-fixed { display: flex; align-items: center; gap: 10px; padding: 8px 16px; font-size: .84rem; color: #475569; border-right: 1px solid #e2e8f0; white-space: nowrap; }
+        .ts-esg-title { font-weight: 800; color: #0a4a70; }
+        .ts-esg-status { display: inline-flex; align-items: center; gap: 6px; font-size: .75rem; font-weight: 600; color: #166534; }
+        .ts-esg-dot { width: 8px; height: 8px; border-radius: 50%; background: #2EAA6B; animation: tsPulse 1.2s infinite alternate; }
+        @keyframes tsPulse { 0% { opacity: .4; transform: scale(.9); } 100% { opacity: 1; transform: scale(1.15); } }
+        .ts-esg-scroll-wrap { flex: 1; overflow: hidden; }
+        .ts-esg-scroll-inner { display: inline-flex; align-items: center; gap: 18px; padding: 8px 16px; font-size: .84rem; color: #475569; white-space: nowrap; animation: tsScroll 40s linear infinite; }
+        .ts-esg-scroll-inner:hover { animation-play-state: paused; }
+        .ts-esg-item { display: inline-flex; gap: 6px; }
+        .ts-esg-item-label { font-weight: 800; color: #0f172a; }
+        .ts-esg-item-value { font-weight: 600; color: #334155; }
+        @keyframes tsScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-			<section class="recent-posts">
-				<h2>Publicaciones Recientes</h2>
-				{posts.length === 0 ? (
-					<p>Cargando publicaciones o no hay artículos disponibles...</p>
-				) : (
-					<ul>
-						{
-							posts.map((post) => (
-								<li>
-									<a href={`/blog/${post.id}/`}>
-										<h3 class="title">{post.data.title}</h3>
-										<p class="date">
-											{post.data.pubDate ? <FormattedDate date={post.data.pubDate} /> : 'Fecha no disponible'}
-										</p>
-									</a>
-								</li>
-							))
-						}
-					</ul>
-				)}
-				<div style="text-align: center;">
-					<a href="/blog" class="btn-all">Ver todos los artículos →</a>
-				</div>
-			</section>
-		</main>
-		<Footer />
-	</body>
+        #ts-hero-paradigma-wp { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; box-shadow: 0 4px 20px -2px rgba(15,23,42,.06); padding: 24px; margin: 12px 0 24px; position: relative; overflow: hidden; }
+        #ts-hero-paradigma-wp .ts-top-bar { position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg,#064e3b,#0ea371,#14b8a6); }
+        #ts-hero-paradigma-wp .ts-meta-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+        #ts-hero-paradigma-wp .ts-badge { display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 3px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+        #ts-hero-paradigma-wp .ts-badge-dot { width: 7px; height: 7px; background: #059669; border-radius: 50%; }
+        #ts-hero-paradigma-wp .ts-pill { background: #f1f5f9; color: #475569; padding: 4px 10px; border-radius: 6px; font-size: 11px; }
+        #ts-hero-paradigma-wp .ts-main-title { font-family: Newsreader, Georgia, serif; font-size: 26px; font-weight: 700; color: #0f172a; margin: 0 0 10px; }
+        #ts-hero-paradigma-wp .ts-main-title span { display: block; color: #065f46; font-size: 20px; font-weight: 600; margin-top: 4px; }
+        #ts-hero-paradigma-wp .ts-lead-text { font-size: 14px; color: #475569; margin: 0 0 18px; }
+        #ts-hero-paradigma-wp .ts-action-group { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 18px; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; }
+        #ts-hero-paradigma-wp .ts-btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; }
+        #ts-hero-paradigma-wp .ts-btn-primary { background: #0ea371; color: #fff; border: 1px solid #0ea371; }
+        #ts-hero-paradigma-wp .ts-btn-primary:hover { background: #0b8058; }
+        #ts-hero-paradigma-wp .ts-btn-outline { background: #fff; color: #334155; border: 1px solid #cbd5e1; }
+        #ts-hero-paradigma-wp .ts-kpi-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 20px; }
+        #ts-hero-paradigma-wp .ts-kpi-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; }
+        #ts-hero-paradigma-wp .ts-kpi-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; }
+        #ts-hero-paradigma-wp .ts-kpi-num { font-size: 24px; font-weight: 800; }
+        #ts-hero-paradigma-wp .ts-kpi-desc { font-size: 11px; color: #64748b; }
+        #ts-hero-paradigma-wp .ts-pilares-grid { display: grid; gap: 10px; margin-bottom: 16px; }
+        #ts-hero-paradigma-wp .ts-pilar-card { background: #fff; border: 1px solid #e2e8f0; border-left: 3px solid #cbd5e1; border-radius: 8px; padding: 12px 14px; }
+        #ts-hero-paradigma-wp .ts-pilar-name { font-size: 12px; font-weight: 700; color: #0f172a; text-transform: uppercase; }
+        #ts-hero-paradigma-wp .ts-pilar-body { font-size: 12px; color: #475569; }
+        #ts-hero-paradigma-wp .ts-video-container { display: none; margin: 14px 0 18px; background: #0f172a; border-radius: 10px; overflow: hidden; }
+        #ts-hero-paradigma-wp .ts-video-iframe-wrapper { position: relative; padding-bottom: 56.25%; height: 0; }
+        #ts-hero-paradigma-wp .ts-video-iframe-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+        @media (min-width: 640px) {
+          #ts-hero-paradigma-wp { padding: 30px; }
+          #ts-hero-paradigma-wp .ts-kpi-grid { grid-template-columns: repeat(4,1fr); }
+          #ts-hero-paradigma-wp .ts-pilares-grid { grid-template-columns: repeat(3,1fr); }
+        }
+
+        #ts-seccion-ec-wp { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; box-shadow: 0 4px 18px -2px rgba(15,23,42,.05); padding: 24px; margin: 24px 0 28px; position: relative; }
+        #ts-seccion-ec-wp .ts-ec-top-accent { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg,#1e3a8a,#0284c7); }
+        #ts-seccion-ec-wp .ts-ec-badge { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; padding: 3px 9px; border-radius: 9999px; font-size: 11px; font-weight: 700; text-transform: uppercase; margin: 2px 0 12px; }
+        #ts-seccion-ec-wp .ts-ec-main-title { font-family: Newsreader, Georgia, serif; font-size: 24px; font-weight: 700; color: #0f172a; margin: 0 0 10px; }
+        #ts-seccion-ec-wp .ts-ec-description { font-size: 14px; color: #475569; margin: 0 0 18px; }
+        #ts-seccion-ec-wp .ts-ec-cards-grid { display: grid; gap: 12px; margin-bottom: 22px; }
+        #ts-seccion-ec-wp .ts-ec-card-item { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 3px solid #0284c7; border-radius: 10px; padding: 14px 16px; }
+        #ts-seccion-ec-wp .ts-ec-card-heading { font-size: 13px; font-weight: 700; color: #0f172a; margin: 0 0 4px; }
+        #ts-seccion-ec-wp .ts-ec-card-paragraph { font-size: 12px; color: #64748b; }
+        #ts-seccion-ec-wp .ts-ec-btn { display: inline-flex; align-items: center; gap: 8px; background: #0284c7; color: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; }
+        @media (min-width: 640px) { #ts-seccion-ec-wp .ts-ec-cards-grid { grid-template-columns: repeat(3,1fr); } }
+
+        #ts-evergreen-section-wp { margin: 36px 0 44px; }
+        #ts-evergreen-section-wp .ts-eg-header { margin-bottom: 22px; border-bottom: 2px solid #e2e8f0; padding-bottom: 14px; }
+        #ts-evergreen-section-wp .ts-eg-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 3px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+        #ts-evergreen-section-wp .ts-eg-title { font-family: Newsreader, Georgia, serif; font-size: 26px; font-weight: 700; color: #0f172a; margin: 8px 0 6px; }
+        #ts-evergreen-section-wp .ts-eg-grid { display: grid; gap: 20px; list-style: none; padding: 0; margin: 0; }
+        #ts-evergreen-section-wp .ts-eg-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+        #ts-evergreen-section-wp .ts-eg-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        #ts-evergreen-section-wp .ts-eg-body { padding: 16px 18px 18px; }
+        #ts-evergreen-section-wp .ts-eg-card-title { font-size: 16px; font-weight: 700; color: #0f172a; margin: 0 0 10px; }
+        #ts-evergreen-section-wp .ts-eg-card-title a { color: #0f172a; text-decoration: none; }
+        #ts-evergreen-section-wp .ts-eg-excerpt { font-size: 12.5px; color: #64748b; }
+        #ts-evergreen-section-wp .ts-eg-read-link { font-size: 12px; font-weight: 700; color: #059669; text-decoration: none; }
+        @media (min-width: 640px) { #ts-evergreen-section-wp .ts-eg-grid { grid-template-columns: repeat(2,1fr); } }
+        @media (min-width: 992px) { #ts-evergreen-section-wp .ts-eg-grid { grid-template-columns: repeat(3,1fr); } }
+
+        #ts-opiniones-section-wp { margin: 36px 0 44px; }
+        #ts-opiniones-section-wp .ts-op-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: #fff1f2; color: #9f1239; border: 1px solid #fecdd3; padding: 3px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+        #ts-opiniones-section-wp .ts-op-title { font-family: Newsreader, Georgia, serif; font-size: 26px; font-weight: 700; color: #0f172a; margin: 8px 0 6px; }
+        #ts-opiniones-section-wp .ts-op-grid { display: grid; gap: 20px; list-style: none; padding: 0; margin: 0; }
+        #ts-opiniones-section-wp .ts-op-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 20px; }
+        #ts-opiniones-section-wp .ts-op-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid #e2e8f0; }
+        #ts-opiniones-section-wp .ts-op-author-name { font-size: 14px; font-weight: 700; color: #0f172a; margin: 0; }
+        #ts-opiniones-section-wp .ts-op-author-role { font-size: 11.5px; color: #be123c; font-weight: 600; }
+        #ts-opiniones-section-wp .ts-op-article-title { font-size: 16px; font-weight: 700; color: #0f172a; margin: 14px 0 10px; }
+        #ts-opiniones-section-wp .ts-op-article-title a { color: #0f172a; text-decoration: none; }
+        #ts-opiniones-section-wp .ts-op-read-link { font-size: 12px; font-weight: 700; color: #be123c; text-decoration: none; }
+        @media (min-width: 768px) { #ts-opiniones-section-wp .ts-op-grid { grid-template-columns: repeat(2,1fr); } }
+
+        .ts-av-one-wrap { width: min(100% - 48px, 1040px); margin: 0 auto; padding: 32px; background: #fff; border: 1px solid #dbe4ec; border-radius: 18px; box-shadow: 0 8px 24px rgba(10,74,112,.07); }
+        .ts-av-one-badge { width: max-content; margin: 0 auto 24px; padding: 7px 16px; border: 1px solid #C90076; border-radius: 999px; background: #EAD1DC; color: #C90076; font-size: .72rem; font-weight: 800; }
+        .ts-av-one-description { max-width: 900px; margin: 0 auto 24px; color: #536174; text-align: center; }
+        .ts-av-one-registry { margin: 0 auto 24px; padding: 22px 28px; border: 2px solid #efa600; border-radius: 15px; background: linear-gradient(135deg,#fff4bd,#ffe79a); }
+        .ts-av-one-record { display: grid; grid-template-columns: 105px 1fr; gap: 14px; align-items: center; border-bottom: 1px solid rgba(146,64,14,.35); }
+        .ts-av-one-record:last-child { border-bottom: 0; }
+        .ts-av-one-record span { color: #934312; font-size: .7rem; font-weight: 800; }
+        .ts-av-one-record a { color: #075078; font-family: monospace; font-size: .8rem; font-weight: 700; text-decoration: none; }
+        .ts-av-one-action { margin-top: 28px; text-align: center; }
+        .ts-av-one-action a { display: inline-flex; align-items: center; min-height: 52px; padding: 0 30px; border-radius: 9px; background: #e9782f; color: #fff; font-weight: 800; text-decoration: none; }
+
+        .ts-cdr-section { background: linear-gradient(135deg, rgba(30,74,109,.08), rgba(30,74,109,.18)); border-top: 1px solid rgba(30,74,109,.15); border-bottom: 1px solid rgba(30,74,109,.15); padding: clamp(2.5rem,6vw,4rem) 0; }
+        .ts-cdr-panel { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+        .ts-cdr-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 12px; text-align: center; font-weight: 700; color: #0f172a; text-decoration: none; }
+        .ts-cdr-item span { display: block; font-size: .75rem; color: #64748b; font-weight: 500; margin-top: 6px; }
+        @media (max-width: 900px) { .ts-cdr-panel { grid-template-columns: repeat(2,1fr); } }
+        @media (max-width: 480px) { .ts-cdr-panel { grid-template-columns: 1fr; } }
+
+        .ts-subscription-form { max-width: 680px; margin: 2.5rem auto; padding: 1.75rem 1.5rem; border-radius: 16px; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 10px 25px rgba(15,23,42,.04); position: relative; overflow: hidden; }
+        .ts-form-row { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+        .ts-form-field input { width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; }
+        .ts-subscription-form button[type="submit"] { background: #E07B39; color: #fff; font-weight: 700; padding: 10px 20px; border-radius: 8px; border: none; width: 100%; }
+        #ts-form-overlay { position: absolute; inset: 0; background: rgba(255,255,255,.92); display: none; align-items: center; justify-content: center; text-align: center; z-index: 10; }
+        @media (max-width: 640px) { .ts-form-row { grid-template-columns: 1fr; } }
+      </style>
+
+      <div class="ts-esg-ticker-wrap">
+        <div class="ts-esg-ticker">
+          <div class="ts-esg-fixed">
+            <span class="ts-esg-status"><span class="ts-esg-dot"></span></span>
+            <span class="ts-esg-title"><a href="https://tiempossustentables.cl/centro-de-recursos/#esg-trends-radar">ESG Trends Radar</a></span>
+          </div>
+          <div class="ts-esg-scroll-wrap">
+            <div class="ts-esg-scroll-inner">
+              <span class="ts-esg-item"><span class="ts-esg-item-label">Trend:</span><span class="ts-esg-item-value">🇨🇱 Economía Circular &amp; Ley REP · +240%</span></span>
+              <span class="ts-esg-item"><span class="ts-esg-item-label">Trend:</span><span class="ts-esg-item-value">🇨🇱 Huella de Carbono · +195%</span></span>
+              <span class="ts-esg-item"><span class="ts-esg-item-label">Trend:</span><span class="ts-esg-item-value">🇨🇱 Taxonomía CMF · +160%</span></span>
+              <span class="ts-esg-item"><span class="ts-esg-item-label">Trend:</span><span class="ts-esg-item-value">🌎 Directiva CS3D UE · +410%</span></span>
+              <span class="ts-esg-item"><span class="ts-esg-item-label">Trend:</span><span class="ts-esg-item-value">🇨🇱 Economía Circular &amp; Ley REP · +240%</span></span>
+              <span class="ts-esg-item"><span class="ts-esg-item-label">Trend:</span><span class="ts-esg-item-value">🇨🇱 Huella de Carbono · +195%</span></span>
+              <span class="ts-esg-item"><span class="ts-esg-item-label">Trend:</span><span class="ts-esg-item-value">🇨🇱 Taxonomía CMF · +160%</span></span>
+              <span class="ts-esg-item"><span class="ts-esg-item-label">Trend:</span><span class="ts-esg-item-value">🌎 Directiva CS3D UE · +410%</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="ts-hero-paradigma-wp">
+        <div class="ts-top-bar"></div>
+        <div class="ts-meta-row">
+          <span class="ts-badge"><span class="ts-badge-dot"></span> Investigación</span>
+          <span class="ts-pill">Nuevo Destacado</span>
+        </div>
+        <h1 class="ts-main-title">
+          El Nuevo Paradigma de la Sostenibilidad:
+          <span>De la Narrativa de Cumplimiento a la Arquitectura de Valor Financiero.</span>
+        </h1>
+        <p class="ts-lead-text">
+          La sostenibilidad corporativa en América Latina atraviesa una inflexión decisiva: la desaparición del <strong>“sobreprecio verde”</strong> (<em>green premium</em>), la exigencia de transparencia auditable y la presión regulatoria de la <strong>CMF bajo NIIF S2</strong> fuerzan al C-suite a integrar las métricas climáticas directamente en el estado de resultados (<strong>P&amp;L</strong>).
+        </p>
+        <div class="ts-action-group">
+          <a href="https://tiempossustentables.cl/el-nuevo-paradigma-de-la-sostenibilidad/" class="ts-btn ts-btn-primary">Leer Artículo Completo</a>
+          <a href="https://tiempossustentables.cl/wp-content/uploads/2026/09/EL-NUEVO-PARADIGMA-DE-LA-SOSTENIBILIDAD-Y-SU-RECEPCION-ESTRATEGICA.pdf" class="ts-btn ts-btn-outline" target="_blank" rel="noopener noreferrer">Informe Técnico (PDF)</a>
+          <button type="button" class="ts-btn ts-btn-outline" onclick="tsToggleHomeVideo()">Ver Video Oficial</button>
+        </div>
+        <div id="ts-home-video-wrapper" class="ts-video-container">
+          <div class="ts-video-iframe-wrapper">
+            <iframe id="ts-youtube-embed" data-src="https://www.youtube-nocookie.com/embed/SEle6L7PWOs?autoplay=1" title="El Nuevo Paradigma de la Sostenibilidad - Tiempos Sustentables" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="ts-kpi-grid">
+          <div class="ts-kpi-card"><div class="ts-kpi-tag" style="color:#be123c">Fin Green Premium</div><div class="ts-kpi-num">43%</div><p class="ts-kpi-desc">Rechaza compras sostenibles por ser “demasiado caras”.</p></div>
+          <div class="ts-kpi-card"><div class="ts-kpi-tag" style="color:#b45309">Brecha CMF Chile</div><div class="ts-kpi-num">24.1%</div><p class="ts-kpi-desc">De 247 emisores cuantifica riesgo en EBITDA (NIIF S2).</p></div>
+          <div class="ts-kpi-card"><div class="ts-kpi-tag" style="color:#0891b2">Huella IA en RM</div><div class="ts-kpi-num">1.8 L/kWh</div><p class="ts-kpi-desc">Consumo hídrico de data centers imputable al Alcance 3.</p></div>
+          <div class="ts-kpi-card"><div class="ts-kpi-tag" style="color:#047857">Incentivos C-Level</div><div class="ts-kpi-num">44%</div><p class="ts-kpi-desc">Único porcentaje de firmas con bonos atados a metas ESG.</p></div>
+        </div>
+        <div class="ts-pilares-grid">
+          <div class="ts-pilar-card" style="border-left-color:#f43f5e"><span class="ts-pilar-name">Trampa de Asequibilidad</span><p class="ts-pilar-body">El 56% prioriza la economía personal. Las marcas deben competir en paridad de costo y anclarse en beneficios de salud tangible.</p></div>
+          <div class="ts-pilar-card" style="border-left-color:#f59e0b"><span class="ts-pilar-name">La Grieta NIIF S2</span><p class="ts-pilar-body">100% de cumplimiento formal en NCG 461, pero 3 de cada 4 firmas informan sin modelos de estrés financiero climático.</p></div>
+          <div class="ts-pilar-card" style="border-left-color:#06b6d4"><span class="ts-pilar-name">Alcance 3 Digital &amp; IA</span><p class="ts-pilar-body">18 data centers en la RM elevan el gasto hídrico y eléctrico. El uso de nube e IA ya es auditable como emisión indirecta.</p></div>
+        </div>
+      </div>
+
+      <section id="ts-seccion-ec-wp">
+        <div class="ts-ec-top-accent"></div>
+        <span class="ts-ec-badge">Guía Estratégica 2026</span>
+        <h2 class="ts-ec-main-title">Economía Circular en Chile y LATAM</h2>
+        <p class="ts-ec-description">Una compilación editorial de publicaciones independientes de Tiempos Sustentables para comprender la circularidad desde la regulación, los flujos materiales, la innovación, los modelos de negocio y la creación de valor verificable.</p>
+        <div class="ts-ec-cards-grid">
+          <div class="ts-ec-card-item"><h4 class="ts-ec-card-heading">♻️ Ecodiseño y Trazabilidad</h4><p class="ts-ec-card-paragraph">Sustitución de insumos vírgenes por materia prima secundaria con auditoría de origen.</p></div>
+          <div class="ts-ec-card-item"><h4 class="ts-ec-card-heading">⚖️ Compliance Ley REP</h4><p class="ts-ec-card-paragraph">Integración con Sistemas de Gestión (SGI) y metas progresivas de valorización.</p></div>
+          <div class="ts-ec-card-item"><h4 class="ts-ec-card-heading">📈 Retorno de Inversión (ROI)</h4><p class="ts-ec-card-paragraph">Transformación de residuos de proceso en nuevas líneas de ingresos o ahorro operativo.</p></div>
+        </div>
+        <a href="https://tiempossustentables.cl/economia-circular-chile-latam/" class="ts-ec-btn">Continuar leyendo</a>
+      </section>
+
+      <section id="ts-evergreen-section-wp">
+        <div class="ts-eg-header">
+          <span class="ts-eg-eyebrow">Evergreen</span>
+          <h2 class="ts-eg-title">Contenido siempre vigente</h2>
+          <p>Selección de análisis y reportajes que siguen siendo relevantes para la toma de decisiones ESG en 2026.</p>
+        </div>
+        <ul class="ts-eg-grid">
+          <li class="ts-eg-card">
+            <img class="ts-eg-img" src="https://tiempossustentables.cl/wp-content/uploads/2026/08/tiempos-sustentables-6a7e7d5078db9.png" alt="Sistema de Compensación de Emisiones Chile" loading="lazy">
+            <div class="ts-eg-body">
+              <h3 class="ts-eg-card-title"><a href="https://tiempossustentables.cl/sostenibilidad-en-chile/">Sostenibilidad en Chile: cómo aprovechar el Sistema de Compensación de Emisiones (SCE)</a></h3>
+              <p class="ts-eg-excerpt">Guía práctica para líderes empresariales: cómo usar el SCE como palanca de sostenibilidad, competitividad y reporte ESG.</p>
+              <a class="ts-eg-read-link" href="https://tiempossustentables.cl/sostenibilidad-en-chile/">Leer investigación →</a>
+            </div>
+          </li>
+          <li class="ts-eg-card">
+            <img class="ts-eg-img" src="https://tiempossustentables.cl/wp-content/uploads/2026/08/tiempos-sustentables-6a7e8351417f7-e1786676122365.png" alt="Construcción circular en Chile" loading="lazy">
+            <div class="ts-eg-body">
+              <h3 class="ts-eg-card-title"><a href="https://tiempossustentables.cl/construccion-circular-en-chile/">Construcción circular en Chile: la hoja de ruta para la transformación del sector</a></h3>
+              <p class="ts-eg-excerpt">Claves del Primer Comité Estratégico para avanzar hacia una construcción descarbonizada, con metas 2035 y casos de reutilización.</p>
+              <a class="ts-eg-read-link" href="https://tiempossustentables.cl/construccion-circular-en-chile/">Leer investigación →</a>
+            </div>
+          </li>
+          <li class="ts-eg-card">
+            <img class="ts-eg-img" src="https://tiempossustentables.cl/wp-content/uploads/2026/08/tiempos-sustentables-6a7e86519ab19-e1786676894420.png" alt="Edición genética en la agricultura chilena" loading="lazy">
+            <div class="ts-eg-body">
+              <h3 class="ts-eg-card-title"><a href="https://tiempossustentables.cl/impacto-genetico-agricultura/">Impacto de la edición genética en la agricultura chilena</a></h3>
+              <p class="ts-eg-excerpt">Tomates con más vitamina D, cultivos que usan menos agua y alimentos más saludables: el futuro del agro con biotecnología.</p>
+              <a class="ts-eg-read-link" href="https://tiempossustentables.cl/impacto-genetico-agricultura/">Leer investigación →</a>
+            </div>
+          </li>
+          <li class="ts-eg-card">
+            <img class="ts-eg-img" src="https://tiempossustentables.cl/wp-content/uploads/2026/08/tiempos-sustentables-6a7e8a3a0ef6a-e1786677866315.png" alt="Ciudad más sostenible del mundo" loading="lazy">
+            <div class="ts-eg-body">
+              <h3 class="ts-eg-card-title"><a href="https://tiempossustentables.cl/en-busca-de-la-ciudad-mas-sostenible-del-mundo-un-modelo-de-futuro-no-una-utopia/">En busca de la ciudad más sostenible: modelo de futuro, no una utopía</a></h3>
+              <p class="ts-eg-excerpt">De Copenhague a Singapur: qué hace que una urbe sea realmente sostenible y cómo aplicar esos aprendizajes en Latinoamérica.</p>
+              <a class="ts-eg-read-link" href="https://tiempossustentables.cl/en-busca-de-la-ciudad-mas-sostenible-del-mundo-un-modelo-de-futuro-no-una-utopia/">Leer investigación →</a>
+            </div>
+          </li>
+          <li class="ts-eg-card">
+            <img class="ts-eg-img" src="https://tiempossustentables.cl/wp-content/uploads/2026/08/tiempos-sustentables-6a7e8c6ee040d-e1786678486797.png" alt="Logística sustentable en Latinoamérica" loading="lazy">
+            <div class="ts-eg-body">
+              <h3 class="ts-eg-card-title"><a href="https://tiempossustentables.cl/logistica-sustentable-en-latinoamerica-desafios-y-oportunidades/">Logística sustentable en Latinoamérica: desafíos y oportunidades</a></h3>
+              <p class="ts-eg-excerpt">Cómo empresas y gobiernos regionales transforman el transporte y la cadena de suministro hacia modelos bajos en carbono.</p>
+              <a class="ts-eg-read-link" href="https://tiempossustentables.cl/logistica-sustentable-en-latinoamerica-desafios-y-oportunidades/">Leer investigación →</a>
+            </div>
+          </li>
+          <li class="ts-eg-card">
+            <img class="ts-eg-img" src="https://tiempossustentables.cl/wp-content/uploads/2026/04/Portada-TS-7.png" alt="La Sostenibilidad Humana en RRHH" loading="lazy">
+            <div class="ts-eg-body">
+              <h3 class="ts-eg-card-title"><a href="https://tiempossustentables.cl/la-sostenibilidad-humana-en-rrhh-de-la-filantropia-a-la-estrategia-esg-en-latam/">La Sostenibilidad Humana en RRHH: de filantropía a supervivencia</a></h3>
+              <p class="ts-eg-excerpt">El cuidado genuino del ecosistema laboral directo e indirecto como condición indispensable para la viabilidad corporativa.</p>
+              <a class="ts-eg-read-link" href="https://tiempossustentables.cl/la-sostenibilidad-humana-en-rrhh-de-la-filantropia-a-la-estrategia-esg-en-latam/">Leer investigación →</a>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section id="ts-opiniones-section-wp">
+        <span class="ts-op-eyebrow">Panel de Expertos</span>
+        <h2 class="ts-op-title">Columnas de opinión</h2>
+        <ul class="ts-op-grid">
+          <li class="ts-op-card">
+            <img class="ts-op-avatar" src="https://tiempossustentables.cl/wp-content/uploads/2026/06/MG_7748-Editar-e1782210055213.jpg?fit=150%2C150&amp;ssl=1" alt="Foto de Antonia Biggs Fuenzalida" loading="lazy">
+            <h4 class="ts-op-author-name">Antonia Biggs Fuenzalida</h4>
+            <p class="ts-op-author-role">Gerenta General, ANIR</p>
+            <h3 class="ts-op-article-title"><a href="https://tiempossustentables.cl/del-residuo-al-recurso-el-cambio-de-mirada-que-necesita-chile/">Del residuo al recurso: el cambio de mirada que necesita Chile</a></h3>
+            <a class="ts-op-read-link" href="https://tiempossustentables.cl/del-residuo-al-recurso-el-cambio-de-mirada-que-necesita-chile/">Leer columna →</a>
+          </li>
+          <li class="ts-op-card">
+            <img class="ts-op-avatar" src="https://tiempossustentables.cl/wp-content/uploads/2025/05/Gerardo-Wijnant.png?fit=150%2C150&amp;ssl=1" alt="Foto de Gerardo Wijnant" loading="lazy">
+            <h4 class="ts-op-author-name">Gerardo Wijnant</h4>
+            <p class="ts-op-author-role">Consultor Nuevas Economías | Promotor Ecosistema BELAT</p>
+            <h3 class="ts-op-article-title"><a href="https://tiempossustentables.cl/renacer-territorios-economia-regenerativa-bien-comun/">El renacer de nuestros territorios: la urgencia de una economía regenerativa y del bien común</a></h3>
+            <a class="ts-op-read-link" href="https://tiempossustentables.cl/renacer-territorios-economia-regenerativa-bien-comun/">Leer columna →</a>
+          </li>
+          <li class="ts-op-card">
+            <img class="ts-op-avatar" src="https://tiempossustentables.cl/wp-content/uploads/2025/07/margarita-ducci-2025-e1784313379312.jpg?fit=150%2C150&amp;ssl=1" alt="Foto de Margarita Ducci" loading="lazy">
+            <h4 class="ts-op-author-name">Margarita Ducci</h4>
+            <p class="ts-op-author-role">Directora Ejecutiva, Pacto Global Chile</p>
+            <h3 class="ts-op-article-title"><a href="https://tiempossustentables.cl/educacion-ambiental-un-aprendizaje-que-definira-el-futuro-de-nuestro-entorno/">Educación ambiental: un aprendizaje que definirá el futuro de nuestro entorno</a></h3>
+            <a class="ts-op-read-link" href="https://tiempossustentables.cl/educacion-ambiental-un-aprendizaje-que-definira-el-futuro-de-nuestro-entorno/">Leer columna →</a>
+          </li>
+          <li class="ts-op-card">
+            <img class="ts-op-avatar" src="https://tiempossustentables.cl/wp-content/uploads/2025/05/Rosa-Madera.png?fit=150%2C150&amp;ssl=1" alt="Foto de Rosa Madera Núñez" loading="lazy">
+            <h4 class="ts-op-author-name">Rosa Madera Núñez</h4>
+            <p class="ts-op-author-role">Fundadora de Empatthy | Impact Advisor</p>
+            <h3 class="ts-op-article-title"><a href="https://tiempossustentables.cl/filantropia-de-desastres-de-la-reaccion-a-la-resiliencia-estructural/">Filantropía de desastres: de la reacción a la resiliencia estructural</a></h3>
+            <a class="ts-op-read-link" href="https://tiempossustentables.cl/filantropia-de-desastres-de-la-reaccion-a-la-resiliencia-estructural/">Leer columna →</a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="ts-av-one-section">
+        <div class="ts-av-one-wrap">
+          <a href="https://tiempossustentables.cl/arquitectura-valor/"><h2 class="ts-av-one-badge">METODOLOGÍA PROPIA</h2></a>
+          <p class="ts-av-one-description">La <strong>Arquitectura de Valor</strong> conecta reportes ESG con los resultados de tu negocio en menos de 90 días. Ayuda a directorios y gerencias a evitar el greenwashing y a crear ventajas competitivas reales.</p>
+          <div class="ts-av-one-registry">
+            <h3>REGISTRO INTERNACIONAL</h3>
+            <div class="ts-av-one-record"><span>DOI</span><a href="https://doi.org/10.5281/zenodo.20443605" target="_blank" rel="noopener noreferrer">10.5281/zenodo.20443605</a></div>
+            <div class="ts-av-one-record"><span>ISSN</span><a href="https://portal.issn.org/resource/ISSN/3087-3096" target="_blank" rel="noopener noreferrer">3087-3096</a></div>
+            <div class="ts-av-one-record"><span>LICENCIA</span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a></div>
+          </div>
+          <div class="ts-av-one-action"><a href="https://tiempossustentables.cl/arquitectura-valor/">Conocer la metodología</a></div>
+        </div>
+      </section>
+
+      <section class="ts-cdr-section">
+        <h2 style="color:#0A4A70;text-align:center">Centro de Recursos y Transparencia</h2>
+        <p style="color:#475569;text-align:center">Accede en un clic a nuestro panel de datos interactivos, documentos oficiales de compliance, repositorio de informes y archivo histórico de publicaciones.</p>
+        <div class="ts-cdr-panel">
+          <a class="ts-cdr-item" href="https://tiempossustentables.cl/centro-de-recursos/#panel-datos">Dashboard transparencia<span>Métricas auditadas GA4 / WordPress.com</span></a>
+          <a class="ts-cdr-item" href="https://tiempossustentables.cl/centro-de-recursos/#regulaciones-marcos-esg">Regulaciones y estándares ESG<span>Principales marcos globales y coberturas regulatorias regionales</span></a>
+          <a class="ts-cdr-item" href="https://tiempossustentables.cl/centro-de-recursos/#repositorio-informes">Repositorio<span>Informes, estudios y documentos técnicos</span></a>
+          <a class="ts-cdr-item" href="https://tiempossustentables.cl/centro-de-recursos/#esg-trends-radar">ESG Trends Radar<span>Índice diario de tendencias y búsquedas corporativas en LATAM</span></a>
+        </div>
+      </section>
+
+      <section class="ts-section">
+        <div class="ts-subscription-form">
+          <h3>Únete a nuestra Comunidad</h3>
+          <p>Recibe análisis exclusivos, alertas regulatorias y las últimas tendencias ESG directamente en tu correo y WhatsApp.</p>
+          <div id="ts-form-content">
+            <form id="ts-comunidad-form" action="https://formspree.io/f/mjgqpzrq" method="POST" onsubmit="return procesarFormularioTS(event, this);">
+              <div class="ts-form-row">
+                <div class="ts-form-field"><label for="ts-nombre">Nombre completo *</label><input type="text" id="ts-nombre" name="nombre" required placeholder="Ej: Camila Rojas"></div>
+                <div class="ts-form-field"><label for="ts-correo">Correo electrónico corporativo *</label><input type="email" id="ts-correo" name="correo" required placeholder="correo@empresa.com"></div>
+              </div>
+              <div class="ts-form-field"><label for="ts-telefono">Teléfono / WhatsApp *</label><input type="tel" id="ts-telefono" name="telefono" required placeholder="+56 9 1234 5678"></div>
+              <div class="ts-policy-check">
+                <input type="checkbox" id="ts-policy-check" required>
+                <label for="ts-policy-check">Acepto recibir artículos, alertas y análisis exclusivos. Entiendo y acepto las <a href="https://tiempossustentables.cl/wp-content/uploads/2026/07/Politicas-de-Compliance-y-Marcos-Normativos-Tiempos-Sustentables-2_7_26-2_36-p.m.pdf" target="_blank" rel="noopener">Condiciones del servicio y la Política de privacidad</a>.</label>
+              </div>
+              <button type="submit">Suscribirme a la Comunidad</button>
+            </form>
+          </div>
+          <div id="ts-form-overlay">
+            <div>
+              <span class="ts-success-icon">🎉</span>
+              <p id="ts-success-message">¡Gracias por unirte a nuestra comunidad!</p>
+              <p>Pronto nos estaremos contactando contigo.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside style="margin-top:40px;padding:20px 24px;border-top:1px solid #E2E8F0;background:#F8FAFC;border-left:4px solid #0A4A70;font-size:.8rem;color:#64748B">
+        <p style="font-weight:700;color:#0F172A">Notas y Fuentes Metodológicas:</p>
+        <ol>
+          <li><strong>Metodología Arquitectura de Valor:</strong> Registro DOI en Zenodo: <a href="https://doi.org/10.5281/zenodo.20443605">10.5281/zenodo.20443605</a>.</li>
+          <li><strong>Estándar de Publicación:</strong> Medio digital registrado bajo el código internacional ISSN 3087-3096.</li>
+          <li><strong>Métricas Auditadas:</strong> Datos consolidados vía Google Analytics 4 y WordPress.com Stats.</li>
+        </ol>
+      </aside>
+
+      <script is:inline>
+        function tsToggleHomeVideo() {
+          const wrapper = document.getElementById('ts-home-video-wrapper');
+          const iframe = document.getElementById('ts-youtube-embed');
+          if (!wrapper || !iframe) return;
+          if (wrapper.style.display === 'block') { wrapper.style.display = 'none'; iframe.src = ''; }
+          else { wrapper.style.display = 'block'; iframe.src = iframe.dataset.src; }
+        }
+        function procesarFormularioTS(e, form) {
+          e.preventDefault();
+          const nombre = document.getElementById('ts-nombre')?.value.trim() || 'amigo/a';
+          document.getElementById('ts-form-content')?.classList.add('ts-form-blurred');
+          document.getElementById('ts-success-message').innerHTML = '¡Gracias <strong>' + nombre + '</strong> por unirte a nuestra comunidad!';
+          document.getElementById('ts-form-overlay').style.display = 'flex';
+          localStorage.setItem('ts_comunidad_suscrito', new Date().toISOString());
+          const action = form.getAttribute('action');
+          if (action) fetch(action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+          return false;
+        }
+      </script>
+    </main>
+    <Footer />
+  </body>
 </html>
